@@ -1,7 +1,7 @@
-java-demo/.classpath
-java-demo/.project
-java-demo/.target/
-java-demo/.settings/
-java-demo/.DS_Store
-java-demo/.gitignore
+/java-demo/.classpath
+/java-demo/.project
+/java-demo/.target/
+/java-demo/.settings/
+/java-demo/.DS_Store
+/java-demo/.gitignore
 .DS_Store
