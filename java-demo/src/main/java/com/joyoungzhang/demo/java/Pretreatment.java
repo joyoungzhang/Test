@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.spark.sql.SparkSession;
 
 /**
- * 
+ * sparksql enableHiveSupport test
  * @author jonezhang
  *
  */
