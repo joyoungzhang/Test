@@ -1,1 +1,1 @@
-Just a demo master
+Just a demo project
