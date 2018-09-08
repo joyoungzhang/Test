@@ -1,1 +1,1 @@
-Just A Demo
+Just a demo
