@@ -6,4 +6,4 @@ from test2
 from test3
 from test4
 from test5
-from test6
+from test6 - 1 2 3
