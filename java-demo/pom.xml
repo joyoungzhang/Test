@@ -17,34 +17,90 @@
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.spark</groupId> -->
+<!-- 			<artifactId>spark-core_${scala.binary.version}</artifactId> -->
+<!-- 			<version>${spark.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.spark</groupId> -->
+<!-- 			<artifactId>spark-mllib_${scala.binary.version}</artifactId> -->
+<!-- 			<version>${spark.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.spark</groupId> -->
+<!-- 			<artifactId>spark-hive_${scala.binary.version}</artifactId> -->
+<!-- 			<version>${spark.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.spark</groupId> -->
+<!-- 			<artifactId>spark-sql_${scala.binary.version}</artifactId> -->
+<!-- 			<version>${spark.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.code.gson</groupId> -->
+<!-- 			<artifactId>gson</artifactId> -->
+<!-- 			<version>2.8.0</version> -->
+<!-- 		</dependency> -->
+
 		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-core_${scala.binary.version}</artifactId>
-			<version>${spark.version}</version>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.11.289</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.dataformat</groupId>
+					<artifactId>jackson-dataformat-cbor</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-mllib_${scala.binary.version}</artifactId>
-			<version>${spark.version}</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-hive_${scala.binary.version}</artifactId>
-			<version>${spark.version}</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-sql_${scala.binary.version}</artifactId>
-			<version>${spark.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.0</version>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-cbor</artifactId>
+			<version>2.9.4</version>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <targetPath>../conf</targetPath>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <targetPath>../conf</targetPath>
+                <excludes>
+                    <exclude>**/*.xml</exclude>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        
 		<plugins>
 			<plugin>
 				<groupId>org.scala-tools</groupId>
@@ -129,19 +185,39 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <descriptors>
+                        <decriptor>src/main/assembly/assembly.xml</decriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>oa_thirdparty_releases</id>
-			<name>internal repository for releases</name>
-			<url>http://maven.oa.com/nexus/content/repositories/thirdparty</url>
-		</repository>
-		<snapshotRepository>
-			<id>oa_thirdparty_snapshots</id>
-			<name>internal repository for snapshots</name>
-			<url>http://maven.oa.com/nexus/content/repositories/thirdparty-snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 	
+	<distributionManagement>
+	     <repository>
+	         <id>oa_thirdparty_releases</id>
+	         <name>internal repository for releases</name>
+	         <url>http://maven.oa.com/nexus/content/repositories/thirdparty</url>
+	     </repository>
+	     <snapshotRepository>
+	         <id>oa_thirdparty_snapshots</id>
+	         <name>internal repository for snapshots</name>
+	         <url>http://maven.oa.com/nexus/content/repositories/thirdparty-snapshots</url>
+	     </snapshotRepository>
+	</distributionManagement>
+
 </project>
