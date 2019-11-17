@@ -8,5 +8,5 @@ from test4
 from test5 test6 test5
 from test6 test6
 from develop
-from test7
+from test7 bn
 from test8 test7
